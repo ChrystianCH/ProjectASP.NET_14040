@@ -15,7 +15,7 @@ namespace ProjectASP.NET_14040.Controllers
         public IActionResult Index()
         {
             var data = _context.BookStores.ToList();
-            return View();
+            return View(data);
         }
     }
 }
