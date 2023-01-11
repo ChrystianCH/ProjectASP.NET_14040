@@ -15,7 +15,7 @@ namespace ProjectASP.NET_14040.Controllers
         {
             var data = _context.Authors.ToList();
 
-            return View();
+            return View(data);
         }
     }
 }
