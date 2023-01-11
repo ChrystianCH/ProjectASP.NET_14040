@@ -2,7 +2,7 @@
 
 namespace ProjectASP.NET_14040.Models
 {
-    public class Cinema
+    public class BookStore
     {
         [Key]
         public int Id { get; set; }
