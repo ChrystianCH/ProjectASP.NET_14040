@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ProjectASP.NET_14040.Data;
 namespace ProjectASP.NET_14040.Models
 {
@@ -14,5 +15,15 @@ namespace ProjectASP.NET_14040.Models
         public DateTime StartDate { get; set; }
 
         public BookCategory BookCategory { get; set; }
+    
+      //Relationsships
+      
+        //BookStore
+       public List<BookStore_Book> BookStore_Books { get; set; }
+      
+        //Author
+        public int AuthorId { get; set; }
+        [ForeignKey("AuthorId")]
+        public Author Author { get; set; }
     }
 }

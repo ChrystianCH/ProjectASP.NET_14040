@@ -16,6 +16,7 @@ namespace ProjectASP.NET_14040.Models
        
         public string Bio { get; set; }
 
-    
+       //Relationships
+       public List<Book> Books { get; set; }
     }
 }

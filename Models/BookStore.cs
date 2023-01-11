@@ -16,5 +16,7 @@ namespace ProjectASP.NET_14040.Models
 
         public string Description { get; set; }
 
+        //Relations
+        public List<BookStore_Book> BookStore_Books { get; set; }
     }
 }
