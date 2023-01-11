@@ -8,7 +8,7 @@ namespace ProjectASP.NET_14040.Models
         public int Id { get; set; }
 
 
-        public string CinemaLogo { get; set; }
+        public string BookStoreLogo { get; set; }
 
 
         public string Name { get; set; }
