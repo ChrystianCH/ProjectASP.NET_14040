@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using ProjectASP.NET_14040.Data;
 namespace ProjectASP.NET_14040
 {
     public class Program
@@ -8,6 +10,10 @@ namespace ProjectASP.NET_14040
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            ///<summary>
+            /// DbContext Configuration
+            /// </summary>
+            builder.Services.AddDbContext<BookStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
             var app = builder.Build();
 
