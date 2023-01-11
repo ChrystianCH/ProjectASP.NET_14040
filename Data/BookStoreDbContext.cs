@@ -30,7 +30,7 @@ namespace ProjectASP.NET_14040.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<BookStore> BookStores { get; set; }
        
-        public DbSet<BookStore_Book> BookStore_Book { get; set; }
+        public DbSet<BookStore_Book> BookStores_Books { get; set; }
 
         public DbSet<Author> Authors { get; set; }
      
