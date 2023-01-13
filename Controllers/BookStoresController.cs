@@ -28,8 +28,8 @@ namespace ProjectASP.NET_14040.Controllers
         }
         public BookStore GetByid(int id)
         {
-            throw new NotImplementedException();
-
+            var result = _context.BookStores.FirstOrDefault(n => n.Id == id);
+            return result;
         }
         public BookStore Update(int id, BookStore newbookStore)
         {
@@ -59,6 +59,16 @@ namespace ProjectASP.NET_14040.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(bookStore);
+        }
+        //Get: Bookstore/Details/id
+        public IActionResult Details(int id)
+        {
+            var bookstoreDetails = GetByid(id);
+            if (bookstoreDetails == null)
+            {
+                return View("Empty");
+             }
+            return View(bookstoreDetails);
         }
     }
 }

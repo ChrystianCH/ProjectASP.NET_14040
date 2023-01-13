@@ -37,9 +37,9 @@
 
 						</td>
 						<td >
-							<a class="btn btn-outline-primary"><i class="bi bi-pencil-square">Edit</i></a>
-							<a class="btn btn-outline-info"><i class="bi bi-eye">Details</i></a>
-							<a class="btn btn-outline-danger"><i class="bi bi-trash">Delete</i></a>
+							<a class="btn btn-outline-primary" asp-controller="BookStores" asp-action="Edit" asp-route-id="@bookStore.Id"><i class="bi bi-pencil-square">Edit</i></a>
+							<a class="btn btn-outline-info" asp-controller="BookStores" asp-action="Details" asp-route-id="@bookStore.Id"><i class="bi bi-eye">Details</i></a>
+							<a class="btn btn-outline-danger" asp-controller="BookStores" asp-action="Delete" asp-route-id="@bookStore.Id"><i class="bi bi-trash">Delete</i></a>
 						</td>
 					</tr>
 				}
