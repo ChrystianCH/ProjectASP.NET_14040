@@ -33,7 +33,9 @@ namespace ProjectASP.NET_14040.Controllers
         }
         public BookStore Update(int id, BookStore newbookStore)
         {
-            throw new NotImplementedException();
+            _context.Update(newbookStore);
+            _context.SaveChanges();
+            return newbookStore;
 
         }
       
@@ -66,9 +68,32 @@ namespace ProjectASP.NET_14040.Controllers
             var bookstoreDetails = GetByid(id);
             if (bookstoreDetails == null)
             {
-                return View("Empty");
+                return View("NotFound");
              }
             return View(bookstoreDetails);
+        }
+        //Get Request: BookStore/Edit
+
+        public IActionResult Edit(int id)
+        {
+            var bookstoreDetails = GetByid(id);
+            if (bookstoreDetails == null)
+            {
+                return View("NotFound");
+            }
+            return View(bookstoreDetails);
+        }
+        [HttpPost]
+        //Bind które pola mają być edytowane 
+        public IActionResult Edit([Bind("Id,Name,BookStoreLogo,Description")] BookStore bookStore,int id)
+        {
+            //sprawdza Validatons
+            if (ModelState.IsValid)
+            {
+                Update(id,bookStore);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(bookStore);
         }
     }
 }
