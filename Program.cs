@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ProjectASP.NET_14040.Controllers;
 using ProjectASP.NET_14040.Data;
 namespace ProjectASP.NET_14040
 {
@@ -14,7 +15,7 @@ namespace ProjectASP.NET_14040
             /// DbContext Configuration
             /// </summary>
             builder.Services.AddDbContext<BookStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
-
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

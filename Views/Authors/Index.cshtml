@@ -31,9 +31,9 @@
 
 						</td>
 						<td >
-							<a class="btn btn-outline-primary"><i class="bi bi-pencil-square">Edit</i></a>
-							<a class="btn btn-outline-info"><i class="bi bi-eye">Details</i></a>
-							<a class="btn btn-outline-danger"><i class="bi bi-trash">Delete</i></a>
+							<a class="btn btn-outline-primary" asp-controller="Authors" asp-action="Edit" asp-route-id="@author.Id"><i class="bi bi-pencil-square">Edit</i></a>
+							<a class="btn btn-outline-info" asp-controller="Authors" asp-action="Details" asp-route-id="@author.Id"><i class="bi bi-eye">Details</i></a>
+							<a class="btn btn-outline-danger" asp-controller="Authors" asp-action="Delete" asp-route-id="@author.Id"><i class="bi bi-trash">Delete</i></a>
 						</td>
 					</tr>
 				}
