@@ -17,9 +17,11 @@ namespace ProjectASP.NET_14040.Controllers
             _context.BookStores.Add(bookStore);
             _context.SaveChanges();
         }
-        public void Delete(int id)
+        public void DeleteBookStore(int id)
         {
-
+            var result = _context.BookStores.FirstOrDefault(n => n.Id == id);
+            _context.BookStores.Remove(result);
+            _context.SaveChanges();
         }
         public IEnumerable<BookStore> getAll()
         {
@@ -94,6 +96,32 @@ namespace ProjectASP.NET_14040.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(bookStore);
+        }
+        //Get Request: BookStore/Delete
+        public IActionResult Delete(int id)
+        {
+            var bookstoreDetails = GetByid(id);
+            if (bookstoreDetails == null)
+            {
+                return View("NotFound");
+            }
+            return View(bookstoreDetails);
+          
+        }
+        [HttpPost, ActionName("Delete")]
+        //Bind które pola mają być wysłane 
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var bookstoreDetails = GetByid(id);
+            if (bookstoreDetails == null)
+            {
+                return View("NotFound");
+            }
+            DeleteBookStore(id);
+          
+            return RedirectToAction(nameof(Index));
+            
+            
         }
     }
 }
