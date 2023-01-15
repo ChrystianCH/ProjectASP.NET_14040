@@ -29,9 +29,9 @@ namespace ProjectASP.NET_14040.Controllers
         public Book GetBookById(int id)
         {
             var bookDetails =  _context.Books
-                .Include(p => p.Author)
-                .Include(am => am.BookStore_Books).ThenInclude(a => a.Book)
-                .FirstOrDefault(n => n.Id == id);
+              .Include(p => p.Author)
+              .Include(am => am.BookStore_Books).ThenInclude(a => a.BookStore)
+              .FirstOrDefault(n => n.Id == id);
 
             return bookDetails;
         }
@@ -53,7 +53,7 @@ namespace ProjectASP.NET_14040.Controllers
             return newBook;
 
         }
-        public NewBookDropdownsVM GetNewMovieDropdownsValues()
+        public NewBookDropdownsVM GetNewBookDropdownsValues()
         {
             var response = new NewBookDropdownsVM()
             {
@@ -64,7 +64,7 @@ namespace ProjectASP.NET_14040.Controllers
 
             return response;
         }
-        public async Task AddNewBook(NewBookVm data)
+        public void AddNewBook(NewBookVm data)
         {
             var newbook = new Book()
             {
@@ -80,19 +80,53 @@ namespace ProjectASP.NET_14040.Controllers
             _context.Books.Add(newbook);
             _context.SaveChanges();
         }
-    
-    public IActionResult Index()
+        public void UpdateBook(NewBookVm data)
+        {
+            var dbbook =  _context.Books.FirstOrDefault(n => n.Id == data.Id);
+
+            if (dbbook != null)
+            {
+                dbbook.Name = data.Name;
+                dbbook.Description = data.Description;
+                dbbook.Price = data.Price;
+                dbbook.Image = data.Image;
+            
+                dbbook.StartDate = data.StartDate;
+            
+                dbbook.BookCategory = data.BookCategory;
+                dbbook.AuthorId = data.AuthorId;
+               _context.SaveChanges();
+            }
+
+            //Remove existing actors
+            var existingBookStoresDb = _context.BookStores_Books.Where(n => n.BookId == data.Id).ToList();
+            _context.BookStores_Books.RemoveRange(existingBookStoresDb);
+           _context.SaveChanges();
+
+            //Add book Actors
+            foreach (var bookStoreId in data.BookStoreIds)
+            {
+                var newBookStorebook = new BookStore_Book()
+                {
+                    BookId = data.Id,
+                    BookStoreId = bookStoreId
+                };
+                _context.BookStores_Books.Add(newBookStorebook);
+            }
+            _context.SaveChanges();
+        }
+        public IActionResult Index()
         {
             var data = _context.Books.Include(name => name.BookStore_Books).Include(name => name.Author).OrderBy(n=> n.Name).ToList();
 
             return View(data);
         }
-        //GET: Movies/Create
+        //GET: books/Create
         public IActionResult Create()
         {
             ViewData["Welcome"] = "Welcome to our store";
             ViewBag.Description = "This is the store description";
-            var bookDropdownsData =GetNewMovieDropdownsValues();
+            var bookDropdownsData =GetNewBookDropdownsValues();
 
             ViewBag.BookStores = new SelectList(bookDropdownsData.BookStores, "Id", "Name");
             ViewBag.Authors = new SelectList(bookDropdownsData.Authors, "Id", "FullName");
@@ -104,11 +138,11 @@ namespace ProjectASP.NET_14040.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var movieDropdownsData =  GetNewMovieDropdownsValues();
+                var bookDropdownsData =  GetNewBookDropdownsValues();
 
       
-                ViewBag.Authors = new SelectList(movieDropdownsData.Authors, "Id", "FullName");
-                ViewBag.BookStores = new SelectList(movieDropdownsData.BookStores, "Id", "Name");
+                ViewBag.Authors = new SelectList(bookDropdownsData.Authors, "Id", "FullName");
+                ViewBag.BookStores = new SelectList(bookDropdownsData.BookStores, "Id", "Name");
 
                 return View(book);
             }
@@ -116,7 +150,54 @@ namespace ProjectASP.NET_14040.Controllers
             AddNewBook(book);
             return RedirectToAction(nameof(Index));
         }
+        //GET: books/Edit/id
+        public IActionResult Edit(int id)
+        {
+            var bookDetails = GetBookById(id);
+            if (bookDetails == null) return View("NotFound");
+
+            var response = new NewBookVm()
+            {
+                Id = bookDetails.Id,
+                Name = bookDetails.Name,
+                Description = bookDetails.Description,
+                Price = bookDetails.Price,
+                StartDate = bookDetails.StartDate,
+                Image = bookDetails.Image,
+                BookCategory = bookDetails.BookCategory,
+                AuthorId = bookDetails.AuthorId,
+                BookStoreIds = bookDetails.BookStore_Books.Select(n => n.BookStoreId).ToList(),
+            };
+
+            var bookDropdownsData = GetNewBookDropdownsValues();
+            ViewBag.BookStores = new SelectList(bookDropdownsData.BookStores, "Id", "Name");
+            ViewBag.Authors = new SelectList(bookDropdownsData.Authors, "Id", "FullName");
+        
+
+            return View(response);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, NewBookVm book)
+        {
+            if (id != book.Id) return View("NotFound");
+
+            if (!ModelState.IsValid)
+            {
+                var bookDropdownsData = GetNewBookDropdownsValues();
+
+              
+                ViewBag.BookStores = new SelectList(bookDropdownsData.BookStores, "Id", "Name");
+                ViewBag.Authors = new SelectList(bookDropdownsData.Authors, "Id", "FullName");
+
+                return View(book);
+            }
+
+            UpdateBook(book);
+            return RedirectToAction(nameof(Index));
+        }
     }
+
     }
 
 

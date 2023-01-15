@@ -5,7 +5,7 @@ namespace ProjectASP.NET_14040.Models
     public class Author
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Display(Name = "Profile Picture")]
         public string ProfilePicture { get; set; }
@@ -17,6 +17,6 @@ namespace ProjectASP.NET_14040.Models
         public string Bio { get; set; }
 
        //Relationships
-       public List<Book> Books { get; set; }
+       public List<Book>? Books { get; set; }
     }
 }

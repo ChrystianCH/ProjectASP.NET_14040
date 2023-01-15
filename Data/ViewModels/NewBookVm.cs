@@ -4,6 +4,7 @@ namespace ProjectASP.NET_14040.Data.ViewModels
 {
     public class NewBookVm
     {
+        public int Id { get; set; }
         [Display(Name = "Book name")]
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
