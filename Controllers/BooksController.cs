@@ -64,8 +64,24 @@ namespace ProjectASP.NET_14040.Controllers
 
             return response;
         }
+        public async Task AddNewBook(NewBookVm data)
+        {
+            var newbook = new Book()
+            {
+                Name = data.Name,
+                Description = data.Description,
+                Price = data.Price,
+                Image = data.Image,
+                StartDate = data.StartDate,
 
-        public IActionResult Index()
+                BookCategory = data.BookCategory,
+                AuthorId = data.AuthorId
+            };
+            _context.Books.Add(newbook);
+            _context.SaveChanges();
+        }
+    
+    public IActionResult Index()
         {
             var data = _context.Books.Include(name => name.BookStore_Books).Include(name => name.Author).OrderBy(n=> n.Name).ToList();
 
@@ -83,7 +99,23 @@ namespace ProjectASP.NET_14040.Controllers
           
             return View();
         }
+        [HttpPost]
+        public IActionResult Create(NewBookVm book)
+        {
+            if (!ModelState.IsValid)
+            {
+                var movieDropdownsData =  GetNewMovieDropdownsValues();
 
+      
+                ViewBag.Authors = new SelectList(movieDropdownsData.Authors, "Id", "FullName");
+                ViewBag.BookStores = new SelectList(movieDropdownsData.BookStores, "Id", "Name");
+
+                return View(book);
+            }
+
+            AddNewBook(book);
+            return RedirectToAction(nameof(Index));
+        }
     }
     }
 
