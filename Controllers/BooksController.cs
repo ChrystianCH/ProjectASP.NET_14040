@@ -35,8 +35,8 @@ namespace ProjectASP.NET_14040.Controllers
 
             return bookDetails;
         }
-        public IEnumerable<Book> GetAll() =>  _context.Books.ToList();
-        public IEnumerable<Book> getAll()
+      
+        public IEnumerable<Book> GetAll()
         {
             var result = _context.Books.ToList();
             return result;
@@ -195,6 +195,33 @@ namespace ProjectASP.NET_14040.Controllers
 
             UpdateBook(book);
             return RedirectToAction(nameof(Index));
+        }
+
+
+        public IActionResult Delete(int id)
+        {
+            var bookstoreDetails = GetByid(id);
+            if (bookstoreDetails == null)
+            {
+                return View("NotFound");
+            }
+            return View(bookstoreDetails);
+
+        }
+        [HttpPost, ActionName("Delete")]
+        //Bind które pola mają być wysłane 
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var bookstoreDetails = GetByid(id);
+            if (bookstoreDetails == null)
+            {
+                return View("NotFound");
+            }
+            DeleteBook(id);
+
+            return RedirectToAction(nameof(Index));
+
+
         }
     }
 
