@@ -26,7 +26,14 @@
                     <div class="col-md-6">
                         <div class="card-body">
                             <p class="card-text">@book.Description</p>
-                            <p class="card-text"><b>BookStore: </b>@book.BookStore_Books</p>
+                            <p class="card-text"><b>BookStore: </b>      @foreach (var bookB in book.BookStore_Books)
+                                {
+                    <span>
+                     BookStore @bookB.BookStoreId
+                      </span>
+
+                                }
+                                </p>
                             <p class="card-text"><b>Author: </b>@book.Author.FullName </p>
                             <p class="card-text"><b>Category: </b>@book.BookCategory</p>
                             <p class="card-text"><b>Start Date: </b>@book.StartDate.ToString("dd MMM yy")</p>
@@ -47,9 +54,7 @@
                     <div class="col-md-12">
                         <div class="card-footer ">
                             <p class="card-text">
-                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@book.Id">
-                                    <i class="bi bi-eye-fill"></i> Show Details
-                                </a>
+                              
                                 <a class="btn btn-success text-white" 
                                    asp-controller="Orders" 
                                    asp-action="AddItemToShoppingCart" 

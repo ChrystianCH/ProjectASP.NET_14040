@@ -82,39 +82,7 @@ namespace ProjectASP.NET_14040.Data
                             BookCategory = BookCategory.Fantastyka,
                          AuthorId = 2,
                         },
-                            new Book()
-                        {
-                           Name = "Book 3",
-                            Description = "This is the Description for third Book",
-                            StartDate = DateTime.Now.AddDays(2),
-                            Image = "https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&w=400",
-                            Price = 69.50,
-                            BookCategory = BookCategory.Kriminał,
-                            
-                            AuthorId = 1,
-                        },
-                            new Book()
-                        {
-                           Name = "Book 4",
-                            Description = "This is the Description for fourth Book",
-                            StartDate = DateTime.Now.AddDays(5),
-                            Image = "https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&w=400",
-                            Price = 49.50,
-                            BookCategory = BookCategory.Poezja,
-                         
-                            AuthorId = 2,
-                        },
-                            new Book()
-                        {
-                           Name = "Book 5",
-                            Description = "This is the Description for fifth Book",
-                            StartDate = DateTime.Now,
-                            Image = "https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&w=400",
-                            Price = 19.50,
-                            BookCategory = BookCategory.Historia,
-                          
-                            AuthorId = 2,
-                        }
+                           
                     }
 
                       ); ;
