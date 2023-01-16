@@ -77,10 +77,15 @@ namespace ProjectASP.NET_14040.Controllers
             return View("RegisterCompleted");
         }
         [HttpPost]
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await _signInManager.SignOutAsync();
+            _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Books");
+        }
+        public IActionResult Users()
+        {
+            var users =  _context.Users.ToList();
+            return View(users);
         }
     }
 }

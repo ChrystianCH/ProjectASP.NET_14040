@@ -21,18 +21,26 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+              
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                      <ul class="navbar-nav flex-grow-1">
-             
-                           <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
- <i class="bi bi-gear"></i>Managment
-</a>
-<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <a class="dropdown-item" asp-controller="BookStores" asp-action="Index"><i class="bi bi-bank"></i>BookStores</a>
-    <a class="dropdown-item" asp-controller="Authors" asp-action="Index"><i class="bi bi-file-person"></i>Authors</a>
-</div>
-  </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-gear"></i>Managment
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="BookStores" asp-action="Index"><i class="bi bi-bank"></i>BookStores</a>
+                                    <a class="dropdown-item" asp-controller="Authors" asp-action="Index"><i class="bi bi-file-person"></i>Authors</a>
+                                       
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Users">
+                        <i class="bi bi-people"></i> Users
+                    </a>
+                
+                                </div>
+                            </li>
+                        }
                     </ul>
                      
            <partial name="_Identity.cshtml" />

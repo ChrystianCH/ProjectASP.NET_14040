@@ -34,11 +34,13 @@
                         <input asp-for="Bio" class="form-control" readonly />
                         <span asp-validation-for="Bio" class="text-danger"></span>
                     </div>
-
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
                     <div class="form-group">
                         <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                         <a class="btn btn-outline-danger" asp-action="Index">Back</a>
                     </div>
+                    }
             
             </div>
         </div>
