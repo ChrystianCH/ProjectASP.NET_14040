@@ -48,5 +48,7 @@ namespace ProjectASP.NET_14040.Controllers
             TempData["Error"] = "Wrong credentials. Please, try again!";
             return View(loginVM);
         }
+        
+        public IActionResult Register() => View(new RegisterVM());
     }
 }
