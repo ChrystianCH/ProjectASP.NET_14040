@@ -1,11 +1,12 @@
 ﻿
 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectASP.NET_14040.Models;
 
 namespace ProjectASP.NET_14040.Data
 {
-    public class BookStoreDbContext : DbContext
+    public class BookStoreDbContext : IdentityDbContext<ApplicationUser>
     {
         public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options): base(options)
         {
