@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProjectASP.NET_14040.Data;
+using ProjectASP.NET_14040.Data.ViewModels;
 using ProjectASP.NET_14040.Models;
 
 namespace ProjectASP.NET_14040.Controllers
@@ -22,5 +23,6 @@ namespace ProjectASP.NET_14040.Controllers
         {
             return View();
         }
+        public IActionResult Login() => View(new LoginVM());
     }
 }
