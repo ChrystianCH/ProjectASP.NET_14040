@@ -59,7 +59,7 @@ namespace ProjectASP.NET_14040.Controllers
             //sprawdza Validatons
             if (ModelState.IsValid)
             {
-                _context.Add(bookStore);
+                Add(bookStore);
                 return RedirectToAction(nameof(Index));
             }
             return View(bookStore);
