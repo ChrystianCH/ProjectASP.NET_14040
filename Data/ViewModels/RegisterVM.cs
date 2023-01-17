@@ -2,6 +2,9 @@
 
 namespace ProjectASP.NET_14040.Data.ViewModels
 {
+    /// <summary>
+    /// klasa dla formularza register
+    /// </summary>
     public class RegisterVM
     {
         [Display(Name = "Full name")]

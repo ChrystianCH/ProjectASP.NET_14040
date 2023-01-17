@@ -2,6 +2,9 @@
 
 namespace ProjectASP.NET_14040.Data.ViewModels
 {
+    /// <summary>
+    /// klasa odpowiadająca za stworzenie nowej ksiązki
+    /// </summary>
     public class NewBookVm
     {
         public int Id { get; set; }

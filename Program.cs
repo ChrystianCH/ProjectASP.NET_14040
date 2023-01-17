@@ -21,7 +21,9 @@ namespace ProjectASP.NET_14040
             builder.Services.AddDbContext<BookStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
             //Authentication and authorization
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreDbContext>();
+           //Dodaje zapamiêtywanie przez cookies
             builder.Services.AddMemoryCache();
+            //Dodaje zapamiêtywanie przez cookies
             builder.Services.AddSession();
             builder.Services.AddAuthentication(options =>
             {
@@ -44,15 +46,17 @@ namespace ProjectASP.NET_14040
             //Authentication & Authorization
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseAuthorization();
+          
 
             app.MapControllerRoute(
                 name: "default",
+                //przekierownie na
                 pattern: "{controller=Books}/{action=Index}/{id?}");
             
             //Czy istnieje jak nie stwórz now¹ 
             BookStoreDbInitializer.Seed(app);
-;            BookStoreDbInitializer.SeedUsersAndRoles(app).Wait();
+            //Czy istnieje jak nie stwórz now¹ baze user role
+            ; BookStoreDbInitializer.SeedUsersAndRoles(app).Wait();
             app.Run();
         }
     }

@@ -6,16 +6,27 @@ namespace ProjectASP.NET_14040.Data
 {
     public class BookStoreDbInitializer
     {
+        /// <summary>
+        ///Tworzenie bazy danych
+        ///  </summary>
         public static void Seed(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
-                //odniesienie do bazy danych
+                
+                ///  <summary>
+                /// odniesienie do bazy danych
+                ///  </summary>
                 var context = serviceScope.ServiceProvider.GetService<BookStoreDbContext>();
-                // czy istnieje
-                context.Database.EnsureCreated();
+                
+                ///  <summary>
+                ///  czy istnieje
+                ///  </summary>
+                                context.Database.EnsureCreated();
 
-                //BookStore
+                ///  <summary>
+                ///  jeżeli pusta stwórz tabele BookStores
+                ///  </summary>
                 if (!context.BookStores.Any())
                 {
                     context.BookStores.AddRange(new List<BookStore>()
@@ -35,9 +46,14 @@ namespace ProjectASP.NET_14040.Data
                     }
 
                         );
+                    ///  <summary>
+                    ///  zapisanie
+                    ///  </summary>
                     context.SaveChanges();
                 }
-                //Author
+                ///  <summary>
+                ///  jeżeli pusta stwórz tabele Authors
+                ///  </summary>
                 if (!context.Authors.Any())
                 {
                     context.Authors.AddRange(new List<Author>()
@@ -59,7 +75,9 @@ namespace ProjectASP.NET_14040.Data
                         );
                     context.SaveChanges();
                 }
-                //Books
+                ///  <summary>
+                ///  jeżeli pusta stwórz tabele Books
+                ///  </summary>
                 if (!context.Books.Any())
                 {
                     context.Books.AddRange(new List<Book>()
@@ -90,8 +108,10 @@ namespace ProjectASP.NET_14040.Data
                       ); ;
                     context.SaveChanges();
                 }
-              
-                //Books & Reviews
+
+                ///  <summary>
+                ///  jeżeli pusta stwórz tabele BookStores_Books
+                ///  </summary>
                 if (!context.BookStores_Books.Any())
                 {
                     context.BookStores_Books.AddRange(new List<BookStore_Book>()
@@ -114,12 +134,17 @@ namespace ProjectASP.NET_14040.Data
             }
 
         }
+        /// <summary>
+        ///Tworzenie bazy danych dla użytkowników i roli 
+        ///  </summary>
         public static async Task SeedUsersAndRoles(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
 
-                //Roles
+                /// <summary>
+                ///Nadanie roli
+                ///  </summary>
                 var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
@@ -127,7 +152,9 @@ namespace ProjectASP.NET_14040.Data
                 if (!await roleManager.RoleExistsAsync(UserRoles.User))
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
-                //Users
+                /// <summary>
+                ///stowrzenie przykładowego admina 
+                ///  </summary>
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 string adminUserEmail = "admin@eBookStore.com";
 
@@ -146,6 +173,9 @@ namespace ProjectASP.NET_14040.Data
                 }
 
 
+                /// <summary>
+                ///stowrzenie przykładowego użytkownika  
+                ///  </summary>
                 string appUserEmail = "user@eBookStore.com";
 
                 var appUser = await userManager.FindByEmailAsync(appUserEmail);

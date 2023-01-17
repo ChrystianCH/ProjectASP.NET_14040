@@ -4,6 +4,9 @@ namespace ProjectASP.NET_14040.Models
     public class BookStore
     {
         [Key]
+        /// <summary>
+        /// Id jako klucz podstawowy dla tabeli Author
+        /// </summary>
         public int? Id { get; set; }
 
         [Display(Name = "Bookstore Logo")]
@@ -17,8 +20,11 @@ namespace ProjectASP.NET_14040.Models
         [Display(Name = "Description")]
         [Required(ErrorMessage = "Bookstore description is required")]
         public string Description { get; set; }
-
-        //Relations
+        //Relacje
+        
+        /// <summary>
+        /// Tabela pomocniczna do relacji ksiązka - biblioteka jedna biblioteka może mieć wiele ksiązek
+        /// </summary>
         public List<BookStore_Book>? BookStore_Books { get; set; }
     }
 }

@@ -10,22 +10,33 @@ namespace ProjectASP.NET_14040.Controllers
     public class BooksController : Controller
     {
         private readonly BookStoreDbContext _context;
+        /// <summary>
+        /// zapisywanie do bazy konturkotr tworzy nową tabele
+        /// </summary>
         public BooksController(BookStoreDbContext context)
         {
             _context = context;
         }
-
+        /// <summary>
+        /// dodanie ksiązki do bazy
+        /// </summary>
         public void Add(Book book)
         {
             _context.Books.Add(book);
             _context.SaveChanges();
         }
+        /// <summary>
+        /// usuwanie ksiązki z bazy
+        /// </summary>
         public void DeleteBook(int id)
         {
             var result = _context.Books.FirstOrDefault(n => n.Id == id);
             _context.Books.Remove(result);
             _context.SaveChanges();
         }
+        /// <summary>
+        /// szukanie ksiązki  po id wraz z relacjami
+        /// </summary>
         public Book GetBookById(int id)
         {
             var bookDetails =  _context.Books
@@ -35,17 +46,25 @@ namespace ProjectASP.NET_14040.Controllers
 
             return bookDetails;
         }
-      
+        /// <summary>
+        /// lista wszystkich ksiązek
+        /// </summary>
         public IEnumerable<Book> GetAll()
         {
             var result = _context.Books.ToList();
             return result;
         }
+        /// <summary>
+        /// szukanie ksiązki  po id 
+        /// </summary>
         public Book GetByid(int id)
         {
             var result = _context.Books.FirstOrDefault(n => n.Id == id);
             return result;
         }
+        /// <summary>
+        /// akutaliacja danych dla ksiązki
+        /// </summary>
         public Book Update(int id, Book newBook)
         {
             _context.Update(newBook);
@@ -53,6 +72,9 @@ namespace ProjectASP.NET_14040.Controllers
             return newBook;
 
         }
+        /// <summary>
+        /// dropdown menu dla bibiliotek i autora
+        /// </summary>
         public NewBookDropdownsVM GetNewBookDropdownsValues()
         {
             var response = new NewBookDropdownsVM()
@@ -63,7 +85,10 @@ namespace ProjectASP.NET_14040.Controllers
             };
 
             return response;
-        }
+        }  
+        /// <summary>
+           /// dodanie dowej ksiązki
+           /// </summary>
         public void AddNewBook(NewBookVm data)
         {
             var newbook = new Book()
@@ -80,6 +105,9 @@ namespace ProjectASP.NET_14040.Controllers
             _context.Books.Add(newbook);
             _context.SaveChanges();
         }
+        /// <summary>
+        /// edycja ksiązki
+        /// </summary>
         public void UpdateBook(NewBookVm data)
         {
             var dbbook =  _context.Books.FirstOrDefault(n => n.Id == data.Id);
@@ -98,12 +126,12 @@ namespace ProjectASP.NET_14040.Controllers
                _context.SaveChanges();
             }
 
-            //Remove existing actors
+            //Remove existing books
             var existingBookStoresDb = _context.BookStores_Books.Where(n => n.BookId == data.Id).ToList();
             _context.BookStores_Books.RemoveRange(existingBookStoresDb);
            _context.SaveChanges();
 
-            //Add book Actors
+            //Add book 
             foreach (var bookStoreId in data.BookStoreIds)
             {
                 var newBookStorebook = new BookStore_Book()
@@ -134,6 +162,9 @@ namespace ProjectASP.NET_14040.Controllers
             return View();
         }
         [HttpPost]
+        /// <summary>
+        ///tutaj jest wysyłany przez formularz ksiązka i sprawdzany czy jest poprawny 
+        /// </summary>
         public IActionResult Create(NewBookVm book)
         {
             if (!ModelState.IsValid)
@@ -151,6 +182,9 @@ namespace ProjectASP.NET_14040.Controllers
             return RedirectToAction(nameof(Index));
         }
         //GET: books/Edit/id
+        ///   <summary>
+        /// edytowanie dla ksiązki przypisanie danych
+        /// </summary
         public IActionResult Edit(int id)
         {
             var bookDetails = GetBookById(id);
@@ -178,6 +212,9 @@ namespace ProjectASP.NET_14040.Controllers
         }
 
         [HttpPost]
+        ///   <summary>
+        /// edytowanie dla ksiązki z danym id
+        /// </summary
         public IActionResult Edit(int id, NewBookVm book)
         {
             if (id != book.Id) return View("NotFound");
@@ -196,7 +233,9 @@ namespace ProjectASP.NET_14040.Controllers
             UpdateBook(book);
             return RedirectToAction(nameof(Index));
         }
-
+        ///   <summary>
+        /// usuwanie dla autora z danym id
+        /// </summary>
 
         public IActionResult Delete(int id)
         {
@@ -210,6 +249,9 @@ namespace ProjectASP.NET_14040.Controllers
         }
         [HttpPost, ActionName("Delete")]
         //Bind które pola mają być wysłane 
+        //   <summary>
+        // formularz czy jesteś pewny usunięcia
+        // </summary>
         public IActionResult DeleteConfirmed(int id)
         {
             var bookstoreDetails = GetByid(id);

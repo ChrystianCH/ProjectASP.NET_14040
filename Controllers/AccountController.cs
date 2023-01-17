@@ -9,10 +9,16 @@ namespace ProjectASP.NET_14040.Controllers
 {
     public class AccountController : Controller
     {
+        /// <summary>
+        ///Kontroler odpowiadający za użytkowników
+        /// </summary>
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly BookStoreDbContext _context;
 
+        /// <summary>
+        /// Konstruktor przypisujący dane 
+        /// </summary>
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, BookStoreDbContext context)
         {
             _userManager = userManager;
@@ -24,8 +30,14 @@ namespace ProjectASP.NET_14040.Controllers
         {
             return View();
         }
+        /// <summary>
+        ///Login towrzy nowy login
+        /// </summary>
         public IActionResult Login() => View(new LoginVM());
         [HttpPost]
+        /// <summary>
+        ///tutaj jest wysyłany przez formularz login i sprawdzany czy jest poprawny i czy istenieje
+        /// </summary>
         public async Task<IActionResult> Login(LoginVM loginVM)
         {
             if (!ModelState.IsValid) return View(loginVM);
@@ -49,9 +61,14 @@ namespace ProjectASP.NET_14040.Controllers
             TempData["Error"] = "Wrong credentials. Please, try again!";
             return View(loginVM);
         }
-        
+        /// <summary>
+        ///Login towrzy nowy register
+        /// </summary>
         public IActionResult Register() => View(new RegisterVM());
         [HttpPost]
+        /// <summary>
+        ///tutaj jest wysyłany przez formularz register i sprawdzany czy jest poprawny i czy istenieje
+        /// </summary>
         public async Task<IActionResult> Register(RegisterVM registerVM)
         {
             if (!ModelState.IsValid) return View(registerVM);
@@ -77,11 +94,17 @@ namespace ProjectASP.NET_14040.Controllers
             return View("RegisterCompleted");
         }
         [HttpPost]
+        /// <summary>
+        ///Wylogowanie używkonika 
+        /// </summary>
         public IActionResult Logout()
         {
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Books");
         }
+        /// <summary>
+        ///Lista użytkowników
+        /// </summary>
         public IActionResult Users()
         {
             var users =  _context.Users.ToList();

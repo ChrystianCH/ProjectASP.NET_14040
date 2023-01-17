@@ -2,6 +2,9 @@
 
 namespace ProjectASP.NET_14040.Data.ViewModels
 {
+    /// <summary>
+    /// klucz  newBookDropdowns tworzy listy dla dropdown menu dla ksiązki 
+    /// </summary>
     public class NewBookDropdownsVM
     {
         public NewBookDropdownsVM()

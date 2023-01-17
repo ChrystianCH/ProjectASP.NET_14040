@@ -8,26 +8,39 @@ namespace ProjectASP.NET_14040.Data
 {
     public class BookStoreDbContext : IdentityDbContext<ApplicationUser>
     {
+        /// <summary>
+        /// konstruktor dziedziczący z IndetityDbContext
+        ///  </summary>
         public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options): base(options)
         {
 
         }
-        //Joining tablica dla BookStore_Book
+        /// <summary>
+        ///Łącząca  tablica dla BookStore_Book
+        ///  </summary>
+     
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Wskazanie dla translatora 
+            /// <summary>
+            ///Wskazanie dla translatora 
+            ///  </summary>
             modelBuilder.Entity<BookStore_Book>().HasKey(bs =>
             new
             {
                 bs.BookId,
                 bs.BookStoreId
             });
-            //Generowanie defoltowych wskazan dla tablicy
+            /// <summary>
+            /// Generowanie domyślnych wskazań dla tablicy
+            /// </summary>
+
             modelBuilder.Entity<BookStore_Book>().HasOne(b => b.Book).WithMany(bs => bs.BookStore_Books).HasForeignKey(b => b.BookId);
             modelBuilder.Entity<BookStore_Book>().HasOne(b => b.BookStore).WithMany(bs => bs.BookStore_Books).HasForeignKey(b => b.BookStoreId);
             base.OnModelCreating(modelBuilder);
         }
-        //Określanie nazwy tablic
+        /// <summary>
+        /// Tworzenie nowych tablicy dla bazy
+        /// </summary>
         public DbSet<Book> Books { get; set; }
         public DbSet<BookStore> BookStores { get; set; }
        

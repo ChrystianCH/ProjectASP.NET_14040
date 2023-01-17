@@ -2,6 +2,9 @@
 
 namespace ProjectASP.NET_14040.Data.ViewModels
 {
+    /// <summary>
+    /// klasa dla formularza login 
+    /// </summary>
     public class LoginVM
     {
        
