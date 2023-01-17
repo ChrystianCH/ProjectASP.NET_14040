@@ -10,4 +10,9 @@ Przy rejestracji użytkownik dostaje taki oto formularz rejestracyjny
 ![image](https://user-images.githubusercontent.com/101001363/213001225-bf2185aa-37fa-4107-b4b4-06766638eb26.png)
 Ma możliwość logowania się do serwisu za pomocą formularza
 ![image](https://user-images.githubusercontent.com/101001363/213001361-50f59d57-1866-4577-885d-e179aa3ea343.png)
-
+Przykładowy Admin
+Email :"admin@eBookStore.com"
+Hasło : "Test@1234?"
+Przykładowy User
+Email : "user@eBookStore.com"
+Hasło : "Test@1234?"
